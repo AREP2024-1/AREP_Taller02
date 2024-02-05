@@ -129,6 +129,16 @@ http://localhost:35000/index.html
 
 Este archivo incluye el contenido estructurado de la página web de peliculas. Una función JavaScript y nos devuelve la información de la película con un JSON.
 
+**6.JSON**
+
+Solicitamos el archivo JSON, a través de la siguiente URL, en este caso en especial obtendremos la información de la película Shadowhunters:
+
+```
+http://localhost:35000/movie/Shadowhunters
+```
+![](images/Json.JPG)
+
+Este archivo nos muestra la información de la película especificada.
 
 ---
 
