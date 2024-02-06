@@ -140,6 +140,17 @@ http://localhost:35000/movie/Shadowhunters
 
 Este archivo nos muestra la información de la película especificada.
 
+***No se encuentra el archivo especificado :***
+
+Para ver como se comporta cuando no encuentra un archivo utilizamos la siguiente URL para este caso en específico:
+
+```
+http://localhost:35000/archivo.png
+```
+![](images/Error.JPG)
+
+Como podemos observar obtuvimos una respuesta 404 Not Found.
+
 ---
 
 ### Construido con

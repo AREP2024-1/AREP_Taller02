@@ -1,6 +1,7 @@
 package edu.eci.arep.ASE.app;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
@@ -14,6 +15,7 @@ public class HTTPServer {
     /*
      * Inicia el servidor HTTP en el puerto 35000 y maneja las solicitudes entrantes.
      * Crea una instancia de la clase HTTPConnection para establecer una conexión con la API.
+     * Lee multiples archivos como html, css, js e imagenes y los envia al cliente.
      * @throws IOException Si hay algún error de entrada/salida durante la ejecución.
      */
     public static void main(String[] args) throws IOException {
@@ -61,23 +63,29 @@ public class HTTPServer {
             String path = firstLine.split(" ")[1];
             ReadFile readFile = new ReadFile();
 
-            if(path.startsWith("/movie")){
-                readFile.getMovieData(clientSocket,httpConnection, path.split("/")[2]);
-
-            }else if(path.equals("/")){
-                readFile.lecturaArchivo(clientSocket, "/index.html");
-            }else if(path.endsWith(".html") || path.endsWith(".js")){
-                readFile.lecturaArchivo(clientSocket , path);
-            }else if(path.endsWith(".css")){
-                readFile.lecturaEstilos(clientSocket, path);
-            }else if(path.endsWith(".jpg")){
-                readFile.lecturaImagen(clientSocket, path);
-
+            try{
+                if(path.startsWith("/movie")){
+                    readFile.getMovieData(clientSocket,httpConnection, path.split("/")[2]);
+    
+                }else if(path.equals("/")){
+                    readFile.lecturaArchivo(clientSocket, "/index.html");
+                }else if(path.endsWith(".html") || path.endsWith(".js")){
+                    readFile.lecturaArchivo(clientSocket , path);
+                }else if(path.endsWith(".css")){
+                    readFile.lecturaEstilos(clientSocket, path);
+                }else if(path.endsWith(".jpg")){
+                    readFile.lecturaImagen(clientSocket, path);
+                }else{
+                    throw new FileNotFoundException("El archivo no ha sido encontrado");
+                }
+     
+                in.close();
+                clientSocket.close();
+            }catch(FileNotFoundException e){
+                readFile.archivoNoEncontrado(clientSocket);
             }
 
- 
-            in.close();
-            clientSocket.close();
+            
         }
         serverSocket.close();
     
